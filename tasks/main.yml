@@ -1,0 +1,20 @@
+---
+# tasks file for ansible-shinken-server
+
+- name: install python
+  yum: name=python state=present
+
+- name: install python-pip
+  yum: name=python-pip state=present
+
+- name: adduser shinken
+  user: name=shinken state=present
+
+- name: pip install shinken
+  pip: name=shinken
+
+- name: chkconfig shinken on
+  shell: chkconfig shinken on creates=/etc/rc3.d/S99shinken
+
+- name: start shinken
+  service: name=shinken state=started
